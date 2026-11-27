@@ -134,7 +134,7 @@ footer{color:var(--soft);font-size:14px;text-align:center;padding-bottom:40px}
 <section class="band" id="rituals"><div class="wrap">
   <h2>Els rituals</h2>
   <div class="how" style="margin-top:18px">
-    <div><b>Com funciona.</b> Primer tria el teu nom a dalt, a «Qui ets?». Després marca fins a 10 rituals amb «M'agrada». Els que en tinguin 5 o més (la meitat del grup) entren a la cerimònia. Es desa sol.</div>
+    <div><b>Com funciona.</b> Primer tria el teu nom a dalt, a «Qui ets?». Obrir l'espai, les fotos de panxa, el tancament i el dinar hi seran segur, i no cal votar-los. De la resta, marca fins a 10 rituals amb «M'agrada». Els que en tinguin 5 o més (la meitat del grup) entren a la cerimònia. Es desa sol.</div>
     <div><b>Cada amiga porta un ritual.</b> Si n'hi ha algun que vols conduir tu, clica «El porto jo»: compraràs o prepararàs el material i el guiaràs aquell moment. Una de nosaltres farà també de conductora.</div>
     <div>Has triat <span class="counter" id="counter">0 de 10</span>. La cerimònia hauria de durar unes 2 hores com a màxim, sense comptar el dinar.</div>
   </div>
@@ -170,8 +170,8 @@ footer{color:var(--soft);font-size:14px;text-align:center;padding-bottom:40px}
 <script>
 {
 const R=[
-{g:0,n:"Escrit d'obertura",d:"Una de nosaltres llegeix un text curt per marcar que la cerimònia comença.",m:"el text",t:3,open:true},
-{g:0,n:"Altar dels quatre elements",d:"Un petit altar al centre amb teles i els quatre elements: terra (flors, pedres), aigua (bol amb pètals), aire (encens) i foc (espelmes). S'encén l'encens per obrir l'espai.",m:"teles, flors, pedres, bol, encens, espelmes",t:5},
+{fix:true,g:0,n:"Escrit d'obertura",d:"Una de nosaltres llegeix un text curt per marcar que la cerimònia comença.",m:"el text",t:3,open:true},
+{fix:true,g:0,n:"Altar dels quatre elements",d:"Un petit altar al centre amb teles i els quatre elements: terra (flors, pedres), aigua (bol amb pètals), aire (encens) i foc (espelmes). S'encén l'encens per obrir l'espai.",m:"teles, flors, pedres, bol, encens, espelmes",t:5},
 {g:1,n:"Coronació amb flors",d:"Li posem una corona de flors i diem una frase: «Et coronem com a mare de dos». Pot ser feta per una floristeria o entre totes, i cadascuna hi afegeix una flor.",m:"corona o base i flors soltes",t:5},
 {g:1,n:"Detall al cabell",d:"Opcional. La pentinem una mica i li fem una petita trena lateral amb una flor o un fil. Simbolitza deixar-se cuidar. Amb la corona potser ja n'hi ha prou.",m:"pinta, flor petita o fil",t:5},
 {g:2,n:"Espelmes de la família",d:"Li regalem unes espelmes i ella tria quina representa la Cris, el Rafa, la Candela i el nadó. Entre totes hi posem una intenció i les encenem. Se les emporta a casa i pot tornar a encendre la del nadó el dia que neixi.",m:"4 o 5 espelmes",t:10},
@@ -189,11 +189,12 @@ const R=[
 {g:5,n:"Playlist per al part",d:"Una llista compartida on cada amiga afegeix 2 o 3 cançons per al dia del part. Es fa abans.",m:"llista a Spotify o similar",t:0},
 {g:6,n:"Calendari de menjars",d:"Ens comprometem a portar un àpat o un tàper les primeres setmanes, 2 o 3 dies per setmana durant un mes. Vivim totes al Prat, és fàcil.",m:"targeta i calendari compartit",t:2},
 {g:6,n:"Vals de cangur per a la Candela",d:"Vals del tipus «Una tarda al parc amb la Candela». La Cris descansa i la Candela té els seus moments especials.",m:"vals fets a mà",t:2},
-{g:7,n:"Sessió de fotos de panxa",d:"No té cap foto de panxa d'aquest embaràs. Amb llum natural, flors, corona i faldilla, fotos soles i de grup. Al gener es fa fosc cap a les sis.",m:"càmera o mòbil, faldilla",t:30},
+{fix:true,g:7,n:"Sessió de fotos de panxa",d:"No té cap foto de panxa d'aquest embaràs. Amb llum natural, flors, corona i faldilla, fotos soles i de grup. Al gener es fa fosc cap a les sis.",m:"càmera o mòbil, faldilla",t:30},
 {g:7,n:"Pintura a la panxa",d:"Opcional. Li pintem la panxa amb henna natural o pintura corporal a base d'aigua: un mandala, flors o branques. Abans de les fotos.",m:"henna natural o pintura, pinzells",t:30},
-{g:8,n:"Tancament",d:"Una ronda d'una sola paraula, una abraçada col·lectiva amb ella al centre o apagar l'altar amb una frase.",m:"res",t:5},
-{g:8,n:"Dinar o pica-pica",d:"Un àpat tranquil on la Cris no hagi de fer res, al mateix lloc o en un restaurant del Prat.",m:"menjar, begudes també sense alcohol",t:null}
-].map((x,i)=>({...x,id:"r"+(i+1),num:i+1}));
+{fix:true,g:8,n:"Tancament",d:"Una ronda d'una sola paraula, una abraçada col·lectiva amb ella al centre o apagar l'altar amb una frase.",m:"res",t:5},
+{fix:true,g:8,n:"Dinar o pica-pica",d:"Un àpat tranquil on la Cris no hagi de fer res, al mateix lloc o en un restaurant del Prat.",m:"menjar, begudes també sense alcohol",t:null}
+];
+{let vi=0,fi=0;for(const x of R){if(x.fix){x.id="f"+(++fi);x.num=null}else{x.id="r"+(++vi);x.num=vi}}}
 const G=[["Obrir l'espai","per començar"],["Honrar-la","ella al centre"],["La família que creix","la Candela i el nadó"],["La xarxa d'amigues","el que ens uneix"],["Paraules","el que li volem dir"],["Cura del cos","descansar i preparar-se"],["Després del part","compromisos per a les setmanes següents"],["Record","fotos"],["Tancar el cercle","per acabar"]];
 const T=[
 {n:"Espai i ambient",d:["Decidir el lloc i l'hora, i confirmar-ho amb la Cris","Flors per a l'altar i la decoració","Teles, coixins, mantes, butaca, espelmes","Arribar abans per muntar i quedar-se a recollir"]},
@@ -222,20 +223,23 @@ const nm=id=>id===uid?"tu":id;
 const by=(f,val)=>people().filter(([,v])=>f in v&&(Array.isArray(v[f])?v[f].includes(val):v[f]===val));
 const list=ids=>ids.map(([id])=>esc(nm(id))).join(", ");
 function setStatus(s){$("#status").textContent=s;$("#status2").textContent=s}
+function card(r){
+  const v=by("r",r.id).length,p=by("porto",r.id),sel=me.r.includes(r.id),mine=me.porto.includes(r.id);
+  const lock=!canWrite||(!sel&&me.r.length>=MAX);
+  let h=`<article class="card${sel?" sel":""}"><h3>${r.num?`<small>${r.num}</small>`:""}${esc(r.n)}</h3><p>${esc(r.d)}</p>`;
+  if(r.open)h+=`<details><summary>Llegeix un esborrany del text</summary><blockquote><p>Cris, avui no has de fer res. Ni preparar, ni servir, ni estar pendent de ningú. Avui et cuidem nosaltres.</p><p>Fa uns anys vam fer cercle al teu voltant quan va arribar la Candela. Vam aprendre juntes que ser mare és preciós i és cansat, i que no s'hauria de fer mai sola.</p><p>Ara la teva família es fa més gran. El Rafa, la Candela i tu esteu a punt de fer lloc a algú que encara no coneixem, i que ja estimem.</p><p>Aquest espai és per honrar el camí que ja has fet, per donar-te força per al que ve i per recordar-te que no estàs sola. Som vuit, som mares, i hi som.</p><p>Benvinguda al teu cercle.</p></blockquote></details>`;
+  h+=`<div class="meta">${esc(r.m)} · ${r.t===null?"durada oberta":r.t+" min"}</div>`;
+  if(r.fix)h+=`<div class="who">${p.length?"El porta: "+list(p):"Encara no el porta ningú"}</div>`;
+  else h+=`<div class="bar" title="${v} vots"><i class="${v>=PASS?"in":""}" style="width:${v/N*100}%"></i></div>
+    <div class="who">${v} ${v===1?"vot":"vots"}${v>=PASS?" · entra":""}${p.length?" · el porta: "+list(p):""}</div>`;
+  h+=`<div class="btns">${r.fix?"":`<button class="tg" data-a="r" data-id="${r.id}" aria-pressed="${sel}" ${lock?"disabled":""}>M'agrada</button>`}<button class="tg alt" data-a="porto" data-id="${r.id}" aria-pressed="${mine}" ${canWrite?"":"disabled"}>El porto jo</button></div></article>`;
+  return h;
+}
 function renderRituals(){
-  let h="";G.forEach((g,gi)=>{
-    h+=`<div class="group"><h3 style="font-size:24px">${esc(g[0])}</h3><span>${esc(g[1])}</span></div><div class="grid">`;
-    for(const r of R.filter(x=>x.g===gi)){
-      const v=by("r",r.id).length,p=by("porto",r.id),sel=me.r.includes(r.id),mine=me.porto.includes(r.id);
-      const lock=!canWrite||(!sel&&me.r.length>=MAX);
-      h+=`<article class="card${sel?" sel":""}"><h3><small>${r.num}</small>${esc(r.n)}</h3><p>${esc(r.d)}</p>`;
-      if(r.open)h+=`<details><summary>Llegeix un esborrany del text</summary><blockquote><p>Cris, avui no has de fer res. Ni preparar, ni servir, ni estar pendent de ningú. Avui et cuidem nosaltres.</p><p>Fa uns anys vam fer cercle al teu voltant quan va arribar la Candela. Vam aprendre juntes que ser mare és preciós i és cansat, i que no s'hauria de fer mai sola.</p><p>Ara la teva família es fa més gran. El Rafa, la Candela i tu esteu a punt de fer lloc a algú que encara no coneixem, i que ja estimem.</p><p>Aquest espai és per honrar el camí que ja has fet, per donar-te força per al que ve i per recordar-te que no estàs sola. Som vuit, som mares, i hi som.</p><p>Benvinguda al teu cercle.</p></blockquote></details>`;
-      h+=`<div class="meta">${esc(r.m)} · ${r.t===null?"durada oberta":r.t+" min"}</div>
-      <div class="bar" title="${v} vots"><i class="${v>=PASS?"in":""}" style="width:${v/N*100}%"></i></div>
-      <div class="who">${v} ${v===1?"vot":"vots"}${v>=PASS?" · entra":""}${p.length?" · el porta: "+list(p):""}</div>
-      <div class="btns"><button class="tg" data-a="r" data-id="${r.id}" aria-pressed="${sel}" ${lock?"disabled":""}>M'agrada</button><button class="tg alt" data-a="porto" data-id="${r.id}" aria-pressed="${mine}" ${canWrite?"":"disabled"}>El porto jo</button></div></article>`;
-    }
-    h+="</div>";
+  let h=`<div class="group"><h3 style="font-size:24px">Això hi serà segur</h3><span>no cal votar-ho, només falta qui ho porti</span></div><div class="grid">${R.filter(x=>x.fix).map(card).join("")}</div>`;
+  G.forEach((g,gi)=>{
+    const rs=R.filter(x=>x.g===gi&&!x.fix);if(!rs.length)return;
+    h+=`<div class="group"><h3 style="font-size:24px">${esc(g[0])}</h3><span>${esc(g[1])}</span></div><div class="grid">${rs.map(card).join("")}</div>`;
   });
   $("#ritlist").innerHTML=h;
   const c=$("#counter");c.textContent=me.r.length+" de "+MAX;c.classList.toggle("full",me.r.length>=MAX);
@@ -257,9 +261,9 @@ function renderResults(){
   const ppl=people(),voted=ppl.filter(([,v])=>v.r.length).length;
   $("#dots").innerHTML=Array.from({length:N},(_,i)=>`<i class="${i<voted?"on":""}"></i>`).join("");
   $("#progtxt").textContent=voted+" de "+N+" ja han votat";
-  const rows=R.map(r=>({r,v:by("r",r.id).length})).sort((a,b)=>b.v-a.v||a.r.num-b.r.num);
-  const inn=rows.filter(x=>x.v>=PASS),mins=inn.reduce((s,x)=>s+(x.r.t||0),0);
-  $("#sum").innerHTML=voted?`Amb ${voted} ${voted===1?"vot":"vots"}, entren <strong>${inn.length}</strong> rituals, que sumen uns <strong>${mins} min</strong> de cerimònia (sense el dinar).`:"Encara no ha votat ningú. Quan voteu, aquí veureu quins rituals entren.";
+  const fixMin=R.filter(x=>x.fix).reduce((s,x)=>s+(x.t||0),0);const rows=R.filter(x=>!x.fix).map(r=>({r,v:by("r",r.id).length})).sort((a,b)=>b.v-a.v||a.r.num-b.r.num);
+  const inn=rows.filter(x=>x.v>=PASS),mins=fixMin+inn.reduce((s,x)=>s+(x.r.t||0),0);
+  $("#sum").innerHTML=voted?`Amb ${voted} ${voted===1?"vot":"vots"}, entren <strong>${inn.length}</strong> rituals, que amb els moments fixos sumen uns <strong>${mins} min</strong> de cerimònia (sense el dinar).`:"Encara no ha votat ningú. Quan voteu, aquí veureu quins rituals entren.";
   $("#reslist").innerHTML=rows.map(x=>`<div class="row"><b>${x.r.num}. ${esc(x.r.n)}</b><div class="bar"><i class="${x.v>=PASS?"in":""}" style="width:${x.v/N*100}%"></i></div><span class="n">${x.v} / ${N}</span></div>`).join("")+`<p class="muted" style="margin:4px 0 0;font-size:14px">La línia marca els 5 vots necessaris per entrar.</p>`;
   $("#decres").innerHTML=D.map(d=>`<div class="card"><h3>${esc(d.n)}</h3>${d.o.map(o=>{const w=by(d.k,o[0]);return `<div class="row" style="grid-template-columns:minmax(0,1fr) 3em"><span>${esc(o[1])}${w.length?`<br><span class="who">${list(w)}</span>`:""}</span><span class="n">${w.length}</span></div>`}).join("")}</div>`).join("");
 }
