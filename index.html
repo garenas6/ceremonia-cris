@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cercle per a la Cris</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* VOICE: tendra i serena, com una invitació escrita a mà entre amigues.
+   IDEA: un ram de gener lligat amb fil: cada ritual és una flor que s'hi afegeix.
+   PICTURE: una branca de mimosa amb eucaliptus, gran, a la banda verda de dalt.
+   COLOUR and TYPE: verd eucaliptus profund dominant, salvia de suport, groc mimosa com a accent; Fraunces per als títols, Nunito Sans per al text.
+   LAYOUT: banda verda amb títol i ram, navegació, rituals per moments en targetes, decisions, tasques i resultats en directe. */
+:root{color-scheme:light dark;
+--bg:light-dark(#fbfbf7,#111814);--ink:light-dark(#1d2822,#eef1ea);--soft:light-dark(#5b6b62,#a9b8ae);
+--band:light-dark(#2d4a3f,#18291f);--bandink:#f4f3ea;--sage:light-dark(#dfe8e0,#22342b);--sage2:light-dark(#a9bfae,#5f7d6c);
+--card:light-dark(#ffffff,#18211c);--line:light-dark(#e3e8e2,#2a3a31);--mim:#f2c230;--mimdeep:light-dark(#8a6a00,#f2c230)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Nunito Sans",system-ui,sans-serif;overflow-x:clip}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:600;line-height:1.08;text-wrap:balance;margin:0}
+h1{font-size:clamp(36px,6vw,54px)}h2{font-size:clamp(26px,3.4vw,34px)}h3{font-size:20px}
+.band{padding:clamp(28px,4vw,64px) max(5vw,16px)}.wrap{max-width:1180px;margin:0 auto}
+.hero{background:var(--band);color:var(--bandink)}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:24px;align-items:center}
+.hero p{max-width:34em;color:#dfe6dc;margin:14px 0 0}
+.date{font-size:17px;color:var(--mim);font-weight:700;margin-top:12px}
+.hero svg{width:100%;height:auto;max-height:420px}
+.prog{margin-top:22px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.qui{margin-top:18px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}.qui label{font-weight:700}
+.qui select{font:16px "Nunito Sans",sans-serif;min-height:44px;padding:8px 14px;border-radius:12px;border:2px solid var(--mim);background:#fff;color:#1d2822;min-width:14em}
+.qui select:focus-visible{outline:3px solid var(--mim);outline-offset:2px}
+.dots{display:flex;gap:6px}.dots i{width:16px;height:16px;border-radius:50%;border:2px solid var(--mim)}.dots i.on{background:var(--mim)}
+.nav{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;gap:4px;overflow-x:auto;padding:8px max(5vw,16px)}
+.nav a{flex:none;color:var(--ink);text-decoration:none;padding:10px 14px;border-radius:99px;font-weight:600;font-size:15px}
+.nav a:hover,.nav a:focus-visible{background:var(--sage)}
+.status{flex:none;margin-left:auto;align-self:center;font-size:14px;color:var(--soft);padding-left:12px}
+.how{background:var(--sage);border-radius:18px;padding:18px 22px;display:grid;gap:6px;margin:0 0 30px}
+.how b{color:var(--ink)}
+.counter{font-weight:700}.counter.full{color:var(--mimdeep)}
+.group{margin:38px 0 14px;display:flex;align-items:baseline;gap:12px}
+.group span{color:var(--soft);font-size:15px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:10px}
+.card.sel{border-color:var(--mim);box-shadow:0 0 0 2px var(--mim) inset}
+.card h3 small{font:600 14px "Nunito Sans",sans-serif;color:var(--soft);margin-right:6px}
+.card p{margin:0}.meta{font-size:14px;color:var(--soft)}
+details{font-size:15px}summary{cursor:pointer;font-weight:600;color:var(--mimdeep);min-height:32px}
+blockquote{margin:10px 0 0;padding:12px 16px;border-left:3px solid var(--mim);background:var(--sage);border-radius:0 12px 12px 0;font-family:Fraunces,Georgia,serif;font-size:16px}
+blockquote p{margin:0 0 8px}
+.btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto;padding-top:4px}
+button{font:inherit;cursor:pointer}
+.tg{min-height:44px;padding:8px 16px;border-radius:99px;border:1.5px solid var(--sage2);background:transparent;color:var(--ink);font-weight:600;font-size:15px}
+.tg[aria-pressed=true]{background:var(--mim);border-color:var(--mim);color:#2a2100}
+.tg.alt[aria-pressed=true]{background:var(--band);border-color:var(--band);color:var(--bandink)}
+.tg:focus-visible,input:focus-visible{outline:3px solid var(--mim);outline-offset:2px}
+.tg:disabled{opacity:.45;cursor:not-allowed}
+.bar{height:8px;border-radius:99px;background:var(--sage);overflow:hidden;position:relative}
+.bar i{display:block;height:100%;background:var(--sage2);border-radius:99px}.bar i.in{background:var(--mim)}
+.bar::after{content:"";position:absolute;left:62.5%;top:0;bottom:0;width:2px;background:var(--soft);opacity:.5}
+.who{font-size:14px;color:var(--soft)}
+.decs{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.opts{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.opt{display:flex;align-items:center;gap:12px;text-align:left;width:100%;border-radius:14px;justify-content:space-between}
+.sw{display:flex;gap:4px;flex:none}.sw i{width:18px;height:18px;border-radius:50%;border:1px solid rgba(0,0,0,.12)}
+input[type=text]{width:100%;font:16px "Nunito Sans",sans-serif;padding:12px 14px;border-radius:12px;border:1.5px solid var(--sage2);background:var(--card);color:var(--ink);margin-top:12px;min-height:44px}
+table{width:100%;border-collapse:collapse;background:var(--card);border-radius:18px;overflow:hidden;border:1px solid var(--line)}
+th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:middle}
+th{font-size:14px;color:var(--soft);font-weight:700}
+td .tg{min-height:40px;padding:6px 14px;white-space:nowrap}
+.res{display:grid;gap:10px}
+.row{display:grid;grid-template-columns:minmax(0,15em) minmax(0,1fr) 4.5em;gap:12px;align-items:center}
+.row b{font-weight:600}.row .n{text-align:right;font-weight:700;white-space:nowrap}
+.sum{background:var(--band);color:var(--bandink);border-radius:18px;padding:18px 22px;margin:18px 0}
+.sum strong{color:var(--mim);font-size:22px}
+.notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.notes ul{margin:8px 0 0;padding-left:20px}.notes li{margin:4px 0}
+.muted{color:var(--soft)}
+footer{color:var(--soft);font-size:14px;text-align:center;padding-bottom:40px}
+@media(max-width:760px){.hero .wrap{grid-template-columns:1fr}.hero svg{max-height:260px;order:-1}}
+@media(max-width:600px){table{font-size:14px}.stack thead{display:none}.stack tr{display:grid;padding-block:10px;border-bottom:1px solid var(--line)}.stack td{display:flow-root;border:0;padding:3px 14px;padding-inline-start:8em;text-align:start}.stack td::before{content:attr(data-l);float:inline-start;width:7.5em;margin-inline-start:-8em;white-space:normal;color:var(--soft);font-size:13px}.stack td:empty{display:none}.row{grid-template-columns:1fr 4em}.row .bar{grid-column:1/-1;grid-row:2}.status{display:none}}
+@media(prefers-reduced-motion:no-preference){.bar i{transition:width .5s ease}}
+</style>
+<script>new MutationObserver(()=>{for(const c of document.querySelectorAll('.stack td:not([data-l])')){let i=0,p=c;while(p=p.previousElementSibling)i+=p.colSpan;c.dataset.l=c.closest('table').rows[0].cells[i]?.textContent||''}}).observe(document,{childList:true,subtree:true})</script>
+</head>
+<body>
+<header class="hero band">
+  <div class="wrap">
+    <div>
+      <h1>Cercle per a la Cris</h1>
+      <div class="date">30 de gener · El Prat de Llobregat</div>
+      <p>Som les vuit amigues que la vam acompanyar en el primer postpart, quan va néixer la Candela. Ara tornem a fer cercle per rebre el segon nadó de la Cris i el Rafa, que encara no sabem si és nen o nena. Ella ens ho ha demanat: una cerimònia íntima, entre nosaltres, sense doula.</p>
+      <p>Aquí hi ha totes les idees. Vota les que t'agradin i apunta't a les que vulguis portar tu.</p>
+      <div class="prog"><div class="dots" id="dots" aria-hidden="true"></div><span id="progtxt">Carregant respostes…</span></div>
+      <div class="qui"><label for="qui">Qui ets?</label><select id="qui"><option value="">Tria el teu nom</option></select><span id="status2" style="color:#dfe6dc;font-size:14px"></span></div>
+    </div>
+    <svg viewBox="0 0 520 420" role="img" aria-label="Branca de mimosa amb fulles d'eucaliptus">
+      <defs>
+        <radialGradient id="pg" cx="35%" cy="30%" r="70%"><stop offset="0" stop-color="#fff2a8"/><stop offset=".55" stop-color="#f2c230"/><stop offset="1" stop-color="#c9971a"/></radialGradient>
+        <radialGradient id="lg" cx="30%" cy="25%" r="80%"><stop offset="0" stop-color="#d3e2d5"/><stop offset=".6" stop-color="#9db7a3"/><stop offset="1" stop-color="#6f8e79"/></radialGradient>
+        <g id="pom"><circle r="9" fill="url(#pg)"/><circle r="9" fill="none" stroke="#fff6c4" stroke-opacity=".35" stroke-dasharray="1.5 2.5" stroke-width="3"/></g>
+        <g id="leaf"><circle r="22" fill="url(#lg)"/><path d="M-20 4 Q0 -2 20 4" stroke="#5f7d6c" stroke-width="1.2" fill="none" opacity=".6"/></g>
+      </defs>
+      <ellipse cx="270" cy="400" rx="190" ry="10" fill="#000" opacity=".18"/>
+      <g fill="none" stroke-linecap="round">
+        <path d="M120 400 C180 300 230 220 330 110" stroke="#6b5a3e" stroke-width="5"/>
+        <path d="M200 300 C150 250 120 200 100 140" stroke="#6b5a3e" stroke-width="3.5"/>
+        <path d="M250 230 C310 210 370 190 440 180" stroke="#6b5a3e" stroke-width="3.5"/>
+        <path d="M290 160 C270 110 250 80 220 50" stroke="#6b5a3e" stroke-width="3"/>
+        <path d="M160 360 C230 350 300 330 380 290" stroke="#58705f" stroke-width="3"/>
+      </g>
+      <g>
+        <use href="#leaf" x="180" y="372" transform="rotate(-10 180 372)"/><use href="#leaf" x="225" y="352"/><use href="#leaf" x="270" y="338" transform="scale(.9) translate(30 37)"/>
+        <use href="#leaf" x="318" y="318"/><use href="#leaf" x="362" y="298" transform="scale(.85) translate(64 53)"/><use href="#leaf" x="200" y="390" transform="scale(.8) translate(50 98)"/>
+        <use href="#leaf" x="150" y="330" transform="scale(.75) translate(50 110)"/><use href="#leaf" x="250" y="372" transform="scale(.7) translate(107 160)"/>
+      </g>
+      <g>
+        <use href="#pom" x="100" y="140"/><use href="#pom" x="118" y="128"/><use href="#pom" x="92" y="160"/><use href="#pom" x="112" y="176"/><use href="#pom" x="130" y="198"/><use href="#pom" x="146" y="220"/><use href="#pom" x="126" y="152"/><use href="#pom" x="160" y="244"/>
+        <use href="#pom" x="220" y="50"/><use href="#pom" x="236" y="40"/><use href="#pom" x="212" y="68"/><use href="#pom" x="244" y="76"/><use href="#pom" x="258" y="100"/><use href="#pom" x="232" y="94"/><use href="#pom" x="270" y="124"/>
+        <use href="#pom" x="330" y="110"/><use href="#pom" x="346" y="98"/><use href="#pom" x="318" y="126"/><use href="#pom" x="350" y="120"/><use href="#pom" x="304" y="140"/><use href="#pom" x="336" y="136"/>
+        <use href="#pom" x="440" y="180"/><use href="#pom" x="456" y="170"/><use href="#pom" x="424" y="196"/><use href="#pom" x="452" y="194"/><use href="#pom" x="400" y="186"/><use href="#pom" x="380" y="200"/><use href="#pom" x="412" y="168"/><use href="#pom" x="356" y="206"/>
+        <use href="#pom" x="282" y="214"/><use href="#pom" x="300" y="200"/><use href="#pom" x="270" y="236"/><use href="#pom" x="226" y="262"/><use href="#pom" x="208" y="286"/>
+      </g>
+    </svg>
+  </div>
+</header>
+<nav class="nav"><div class="wrap">
+  <a href="#rituals">Rituals</a><a href="#decisions">Decisions</a><a href="#tasques">Comissions</a><a href="#resultats">Resultats</a><a href="#notes">Flors i cura</a>
+  <span class="status" id="status" role="status"></span>
+</div></nav>
+<main>
+<section class="band" id="rituals"><div class="wrap">
+  <h2>Els rituals</h2>
+  <div class="how" style="margin-top:18px">
+    <div><b>Com funciona.</b> Primer tria el teu nom a dalt, a «Qui ets?». Després marca fins a 10 rituals amb «M'agrada». Els que en tinguin 5 o més (la meitat del grup) entren a la cerimònia. Es desa sol.</div>
+    <div><b>Cada amiga porta un ritual.</b> Si n'hi ha algun que vols conduir tu, clica «El porto jo»: compraràs o prepararàs el material i el guiaràs aquell moment. Una de nosaltres farà també de conductora.</div>
+    <div>Has triat <span class="counter" id="counter">0 de 10</span>. La cerimònia hauria de durar unes 2 hores com a màxim, sense comptar el dinar.</div>
+  </div>
+  <div id="ritlist"></div>
+</div></section>
+<section class="band" id="decisions" style="background:var(--sage)"><div class="wrap">
+  <h2>Altres decisions</h2>
+  <p class="muted" style="margin:10px 0 20px">Tria una opció de cada. A finals de gener floreix la mimosa: groga, lluminosa i de temporada.</p>
+  <div class="decs" id="declist"></div>
+</div></section>
+<section class="band" id="tasques"><div class="wrap">
+  <h2>Comissions</h2>
+  <p class="muted" style="margin:10px 0 20px">Per no atabalar el grup, ens repartim en quatre comissions. Cada comissió s'encarrega de les seves tasques i decideix pel seu compte. Som vuit: l'ideal és dues persones per comissió. Apunta't a la que vulguis.</p>
+  <div class="decs" id="tasklist"></div>
+  <p class="muted" style="margin-top:14px">Les despeses: cadascuna compra el material de la seva part i l'apunta al Tricount del grup.</p>
+</div></section>
+<section class="band" id="resultats" style="background:var(--sage)"><div class="wrap">
+  <h2>Resultats en directe</h2>
+  <div class="sum" id="sum">Encara no hi ha vots.</div>
+  <div class="res" id="reslist"></div>
+  <div class="decs" id="decres" style="margin-top:28px"></div>
+</div></section>
+<section class="band" id="notes"><div class="wrap">
+  <h2>Flors, ambient i cura</h2>
+  <div class="notes" style="margin-top:20px">
+    <div class="card"><h3>Flors de gener</h3><p>Mimosa, anemones, ranuncles, tulipes, frèsies i branques d'eucaliptus, olivera o romaní. Si l'hivern és suau, potser ja hi haurà algun ametller florit.</p></div>
+    <div class="card"><h3>Ambient</h3><ul><li>Coixins i mantes al terra, i per a la Cris una butaca o un puf còmode.</li><li>Llum suau, calefacció posada i una manta per als peus.</li><li>Vestimenta: amb els colors de la paleta triada, o totes de blanc i ella amb la faldilla de color.</li></ul></div>
+    <div class="card"><h3>Cura per a l'embaràs</h3><ul><li>Fum (encens, palo santo), poc i amb la finestra oberta.</li><li>Massatge amb oli neutre, sense olis essencials; mai sàlvia esclarea.</li><li>TENS i aromes del kit, que els revisi la seva llevadora.</li><li>Henna només natural, mai negra.</li><li>Aigua i alguna cosa per picar des del principi.</li></ul><p class="meta">No som professionals: qualsevol dubte, a la llevadora.</p></div>
+  </div>
+</div></section>
+</main>
+<footer>Fet amb amor per a la Cris, el Rafa, la Candela i el nadó.</footer>
+<script>
+{
+const R=[
+{g:0,n:"Escrit d'obertura",d:"Una de nosaltres llegeix un text curt per marcar que la cerimònia comença.",m:"el text",t:3,open:true},
+{g:0,n:"Altar dels quatre elements",d:"Un petit altar al centre amb teles i els quatre elements: terra (flors, pedres), aigua (bol amb pètals), aire (encens) i foc (espelmes). S'encén l'encens per obrir l'espai.",m:"teles, flors, pedres, bol, encens, espelmes",t:5},
+{g:1,n:"Coronació amb flors",d:"Li posem una corona de flors i diem una frase: «Et coronem com a mare de dos». Pot ser feta per una floristeria o entre totes, i cadascuna hi afegeix una flor.",m:"corona o base i flors soltes",t:5},
+{g:1,n:"Detall al cabell",d:"Opcional. La pentinem una mica i li fem una petita trena lateral amb una flor o un fil. Simbolitza deixar-se cuidar. Amb la corona potser ja n'hi ha prou.",m:"pinta, flor petita o fil",t:5},
+{g:2,n:"Espelmes de la família",d:"Li regalem unes espelmes i ella tria quina representa la Cris, el Rafa, la Candela i el nadó. Entre totes hi posem una intenció i les encenem. Se les emporta a casa i pot tornar a encendre la del nadó el dia que neixi.",m:"4 o 5 espelmes",t:10},
+{g:2,n:"Regal per a la Candela",d:"Un detall perquè la Candela també tingui el seu lloc: un llibre sobre ser germana gran, una nina amb un nadó o una capsa de coses per fer mentre la mama alleta.",m:"regal embolicat",t:5},
+{g:2,n:"Missatge o dibuix de la Candela",d:"Abans de la cerimònia, el Rafa ajuda la Candela a fer un dibuix o gravar un missatge per a la mama. Així la Candela hi és present.",m:"coordinació amb el Rafa",t:2},
+{g:3,n:"Penjoll-amulet a vuit mans",d:"Cada amiga porta un compte o una pedreta i la posa al cordó mentre li diu un desig per al part. És el seu amulet per als últims dies i el dia del part.",m:"cordó o cadena, 8 comptes",t:10},
+{g:3,n:"Fil vermell",d:"Ens passem un cabdell de fil vermell formant una xarxa mentre diem un desig. Cadascuna se'n lliga un tros al canell i no se'l treu fins que neixi el nadó.",m:"fil vermell, tisores",t:10},
+{g:3,n:"Espelmes per al dia del part",d:"Cada amiga s'emporta una espelma petita. Quan el Rafa avisi pel grup que ha començat el part, totes l'encenem per acompanyar-la a distància.",m:"8 espelmes petites",t:3},
+{g:4,n:"Cartes de la família i les amigues",d:"Una capsa amb cartes de les amigues i de la família (el Rafa, els seus pares, germans). Cal demanar-les abans del 9 de gener.",m:"capsa o sobre, cartes",t:15},
+{g:4,n:"Ronda de la «veritat sense filtre»",d:"Com que totes som mares, cadascuna li diu una frase honesta i tranquil·litzadora sobre el postpart, el que vam aprendre o el que admirem d'ella com a mare.",m:"res",t:15},
+{g:4,n:"Banderola de desigs",d:"Cada amiga escriu un desig en un triangle de roba o cartolina i fem una garlanda per penjar a l'habitació del part o del nadó.",m:"triangles, retoladors, cordó",t:10},
+{g:5,n:"Bany de peus i massatge",d:"Bany de peus amb aigua tèbia, sals i pètals, i massatge suau de mans i peus. Es pot fer mentre llegeix les cartes.",m:"palangana, tovallola, sals, oli d'ametlles",t:20},
+{g:5,n:"Kit per al part",d:"Un regal pràctic: oli de massatge per a les contraccions, oli per al massatge perineal, un TENS, mitjons càlids, bàlsam de llavis i coses per al postpart.",m:"segons el que es triï",t:3},
+{g:5,n:"Pot del respir",d:"Un pot de vidre amb paperets d'idees de descans per als dies esgotadors: «dutxa llarga amb la porta tancada», «truca'm i et porto un cafè».",m:"pot de vidre, paperets",t:5},
+{g:5,n:"Playlist per al part",d:"Una llista compartida on cada amiga afegeix 2 o 3 cançons per al dia del part. Es fa abans.",m:"llista a Spotify o similar",t:0},
+{g:6,n:"Calendari de menjars",d:"Ens comprometem a portar un àpat o un tàper les primeres setmanes, 2 o 3 dies per setmana durant un mes. Vivim totes al Prat, és fàcil.",m:"targeta i calendari compartit",t:2},
+{g:6,n:"Vals de cangur per a la Candela",d:"Vals del tipus «Una tarda al parc amb la Candela». La Cris descansa i la Candela té els seus moments especials.",m:"vals fets a mà",t:2},
+{g:7,n:"Sessió de fotos de panxa",d:"No té cap foto de panxa d'aquest embaràs. Amb llum natural, flors, corona i faldilla, fotos soles i de grup. Al gener es fa fosc cap a les sis.",m:"càmera o mòbil, faldilla",t:30},
+{g:7,n:"Pintura a la panxa",d:"Opcional. Li pintem la panxa amb henna natural o pintura corporal a base d'aigua: un mandala, flors o branques. Abans de les fotos.",m:"henna natural o pintura, pinzells",t:30},
+{g:8,n:"Tancament",d:"Una ronda d'una sola paraula, una abraçada col·lectiva amb ella al centre o apagar l'altar amb una frase.",m:"res",t:5},
+{g:8,n:"Dinar o pica-pica",d:"Un àpat tranquil on la Cris no hagi de fer res, al mateix lloc o en un restaurant del Prat.",m:"menjar, begudes també sense alcohol",t:null}
+].map((x,i)=>({...x,id:"r"+(i+1),num:i+1}));
+const G=[["Obrir l'espai","per començar"],["Honrar-la","ella al centre"],["La família que creix","la Candela i el nadó"],["La xarxa d'amigues","el que ens uneix"],["Paraules","el que li volem dir"],["Cura del cos","descansar i preparar-se"],["Després del part","compromisos per a les setmanes següents"],["Record","fotos"],["Tancar el cercle","per acabar"]];
+const T=[
+{n:"Espai i ambient",d:["Decidir el lloc i l'hora, i confirmar-ho amb la Cris","Flors per a l'altar i la decoració","Teles, coixins, mantes, butaca, espelmes","Arribar abans per muntar i quedar-se a recollir"]},
+{n:"Cerimònia",d:["Fer de conductora: ordre dels rituals, obrir i tancar","Música suau per a la cerimònia i altaveu","Fotos de tota la cerimònia","Triar i aconseguir la faldilla per a la Cris"]},
+{n:"Família",d:["Coordinar-se amb el Rafa","Recollir les cartes de la família abans del 9 de gener","Missatge o dibuix de la Candela","Que el Rafa avisi el grup el dia del part"]},
+{n:"Menjar i comptes",d:["Aigua i picar durant la cerimònia","El dinar o pica-pica de després","Material bàsic: llumins, tisores, bolígrafs, mocadors","Obrir el Tricount i recordar-ho a totes"]}
+].map((x,i)=>({...x,id:"c"+(i+1)}));
+const IDEAL=2;
+const NOMS=["Anna","Fabi","Jess","Gloria","Joana","Judit","Laura","Melania"];
+const D=[
+{k:"paleta",n:"Paleta de colors",o:[["llum","Llum d'hivern",["#f2c230","#ffffff","#a9bfae"]],["terra","Terra càlida",["#c96f4a","#d9a441","#f1e6d2"]],["rosa","Rosa empolsat",["#e8c4c4","#b9a0c9","#f6efe8"]]]},
+{k:"hora",n:"Matí o tarda",o:[["mati","Matí i després dinar"],["tarda","Tarda i després berenar o sopar"]]},
+{k:"menjar",n:"El menjar",o:[["pica","Pica-pica al mateix lloc"],["dinar","Dinar al mateix lloc"],["rest","Restaurant al Prat"]]}
+];
+let N=8;const MAX=10,PASS=5;
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+let me={r:[],porto:[],t:[],paleta:"",hora:"",menjar:"",lloc:""};
+/* Enganxa aquí l'URL de l'aplicació web de Google Apps Script (acaba en /exec) */
+const API_URL="https://script.google.com/macros/s/AKfycbxWkwlM_EcnQonBXkov0ZQXTmmoIn8OVJ5m0aHir-KV29V66QXyGtGmgz0PMm5cGO6gSg/exec";
+let all=new Map(),uid=null,amigues=NOMS.slice(),canWrite=false,ready=false;
+const arr=v=>Array.isArray(v)?v.filter(x=>typeof x==="string"):[];
+const norm=v=>({r:arr(v.r).slice(0,MAX),porto:arr(v.porto),t:arr(v.t),paleta:String(v.paleta||""),hora:String(v.hora||""),menjar:String(v.menjar||""),lloc:String(v.lloc||"").slice(0,120)});
+function people(){const l=[];for(const [id,v] of all)if(id!==uid)l.push([id,norm(v)]);if(uid&&ready)l.push([uid,me]);return l}
+const nm=id=>id===uid?"tu":id;
+const by=(f,val)=>people().filter(([,v])=>f in v&&(Array.isArray(v[f])?v[f].includes(val):v[f]===val));
+const list=ids=>ids.map(([id])=>esc(nm(id))).join(", ");
+function setStatus(s){$("#status").textContent=s;$("#status2").textContent=s}
+function renderRituals(){
+  let h="";G.forEach((g,gi)=>{
+    h+=`<div class="group"><h3 style="font-size:24px">${esc(g[0])}</h3><span>${esc(g[1])}</span></div><div class="grid">`;
+    for(const r of R.filter(x=>x.g===gi)){
+      const v=by("r",r.id).length,p=by("porto",r.id),sel=me.r.includes(r.id),mine=me.porto.includes(r.id);
+      const lock=!canWrite||(!sel&&me.r.length>=MAX);
+      h+=`<article class="card${sel?" sel":""}"><h3><small>${r.num}</small>${esc(r.n)}</h3><p>${esc(r.d)}</p>`;
+      if(r.open)h+=`<details><summary>Llegeix un esborrany del text</summary><blockquote><p>Cris, avui no has de fer res. Ni preparar, ni servir, ni estar pendent de ningú. Avui et cuidem nosaltres.</p><p>Fa uns anys vam fer cercle al teu voltant quan va arribar la Candela. Vam aprendre juntes que ser mare és preciós i és cansat, i que no s'hauria de fer mai sola.</p><p>Ara la teva família es fa més gran. El Rafa, la Candela i tu esteu a punt de fer lloc a algú que encara no coneixem, i que ja estimem.</p><p>Aquest espai és per honrar el camí que ja has fet, per donar-te força per al que ve i per recordar-te que no estàs sola. Som vuit, som mares, i hi som.</p><p>Benvinguda al teu cercle.</p></blockquote></details>`;
+      h+=`<div class="meta">${esc(r.m)} · ${r.t===null?"durada oberta":r.t+" min"}</div>
+      <div class="bar" title="${v} vots"><i class="${v>=PASS?"in":""}" style="width:${v/N*100}%"></i></div>
+      <div class="who">${v} ${v===1?"vot":"vots"}${v>=PASS?" · entra":""}${p.length?" · el porta: "+list(p):""}</div>
+      <div class="btns"><button class="tg" data-a="r" data-id="${r.id}" aria-pressed="${sel}" ${lock?"disabled":""}>M'agrada</button><button class="tg alt" data-a="porto" data-id="${r.id}" aria-pressed="${mine}" ${canWrite?"":"disabled"}>El porto jo</button></div></article>`;
+    }
+    h+="</div>";
+  });
+  $("#ritlist").innerHTML=h;
+  const c=$("#counter");c.textContent=me.r.length+" de "+MAX;c.classList.toggle("full",me.r.length>=MAX);
+}
+function renderDecs(){
+  $("#declist").innerHTML=D.map(d=>`<div class="card"><h3>${esc(d.n)}</h3><div class="opts">${d.o.map(o=>{const on=me[d.k]===o[0],c=by(d.k,o[0]).length;return `<button class="tg opt" data-a="dec" data-k="${d.k}" data-v="${o[0]}" aria-pressed="${on}" ${canWrite?"":"disabled"}><span style="display:flex;gap:10px;align-items:center">${o[2]?`<span class="sw">${o[2].map(x=>`<i style="background:${x}"></i>`).join("")}</span>`:""}${esc(o[1])}</span><span>${c}</span></button>`}).join("")}</div></div>`).join("")+
+  `<div class="card"><h3>On ho fem?</h3><p class="muted" style="font-size:15px">Casa d'alguna de nosaltres, un espai exterior… escriu la teva proposta.</p><input type="text" id="lloc" maxlength="120" placeholder="La meva proposta" value="${esc(me.lloc)}" ${canWrite?"":"disabled"}><div class="who" id="llocs" style="margin-top:10px"></div></div>`;
+  renderLlocs();
+}
+function renderLlocs(){const el=$("#llocs");if(!el)return;const l=people().filter(([,v])=>v.lloc);el.innerHTML=l.length?l.map(([id,v])=>`<div><b>${esc(nm(id))}:</b> ${esc(v.lloc)}</div>`).join(""):"Encara no hi ha propostes."}
+function renderDecCounts(){document.querySelectorAll('[data-a="dec"]').forEach(b=>{b.setAttribute("aria-pressed",me[b.dataset.k]===b.dataset.v);b.lastElementChild.textContent=by(b.dataset.k,b.dataset.v).length})}
+function renderTasks(){
+  $("#tasklist").innerHTML=T.map(t=>{const w=by("t",t.id),on=me.t.includes(t.id);
+    return `<div class="card${on?" sel":""}"><h3>${esc(t.n)}</h3><ul style="margin:0;padding-left:20px">${t.d.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>
+    <div class="who"><b>${w.length} de ${IDEAL}</b>${w.length?": "+list(w):" · ningú encara"}${w.length>IDEAL?" · n'hi ha més de les previstes":""}</div>
+    <div class="btns"><button class="tg alt" data-a="t" data-id="${t.id}" aria-pressed="${on}" ${canWrite?"":"disabled"}>${on?"Hi sóc":"M'hi apunto"}</button></div></div>`}).join("");
+}
+function renderResults(){
+  const ppl=people(),voted=ppl.filter(([,v])=>v.r.length).length;
+  $("#dots").innerHTML=Array.from({length:N},(_,i)=>`<i class="${i<voted?"on":""}"></i>`).join("");
+  $("#progtxt").textContent=voted+" de "+N+" ja han votat";
+  const rows=R.map(r=>({r,v:by("r",r.id).length})).sort((a,b)=>b.v-a.v||a.r.num-b.r.num);
+  const inn=rows.filter(x=>x.v>=PASS),mins=inn.reduce((s,x)=>s+(x.r.t||0),0);
+  $("#sum").innerHTML=voted?`Amb ${voted} ${voted===1?"vot":"vots"}, entren <strong>${inn.length}</strong> rituals, que sumen uns <strong>${mins} min</strong> de cerimònia (sense el dinar).`:"Encara no ha votat ningú. Quan voteu, aquí veureu quins rituals entren.";
+  $("#reslist").innerHTML=rows.map(x=>`<div class="row"><b>${x.r.num}. ${esc(x.r.n)}</b><div class="bar"><i class="${x.v>=PASS?"in":""}" style="width:${x.v/N*100}%"></i></div><span class="n">${x.v} / ${N}</span></div>`).join("")+`<p class="muted" style="margin:4px 0 0;font-size:14px">La línia marca els 5 vots necessaris per entrar.</p>`;
+  $("#decres").innerHTML=D.map(d=>`<div class="card"><h3>${esc(d.n)}</h3>${d.o.map(o=>{const w=by(d.k,o[0]);return `<div class="row" style="grid-template-columns:minmax(0,1fr) 3em"><span>${esc(o[1])}${w.length?`<br><span class="who">${list(w)}</span>`:""}</span><span class="n">${w.length}</span></div>`}).join("")}</div>`).join("");
+}
+function renderAll(){renderRituals();renderTasks();renderResults();renderDecCounts();renderLlocs()}
+let timer=null,saving=false,again=false;
+const configured=/^https:\/\/script\.google\.com\//.test(API_URL);
+async function load(){
+  if(!configured)return;
+  try{
+    const res=await fetch(API_URL+"?t="+Date.now());const d=await res.json();
+    if(Array.isArray(d.amigues)&&d.amigues.length)amigues=d.amigues.map(String);N=amigues.length||8;
+    const m=new Map();for(const v of (Array.isArray(d.vots)?d.vots:[]))if(v&&amigues.includes(String(v.nom)))m.set(String(v.nom),v.data||{});
+    all=m;fillNames();
+    if(!ready){ready=true;pick(remembered())}
+    if(!saving&&!timer)renderAll();
+  }catch(e){$("#progtxt").textContent="No s'han pogut carregar les respostes"}
+}
+function fillNames(){
+  const s=$("#qui"),cur=s.value;
+  if(s.options.length-1===amigues.length&&amigues.every((a,i)=>s.options[i+1].value===a))return;
+  s.innerHTML='<option value="">Tria el teu nom</option>'+amigues.map(a=>`<option value="${esc(a)}">${esc(a)}</option>`).join("");
+  s.value=amigues.includes(cur)?cur:"";
+}
+function remembered(){try{return localStorage.getItem("cercle-nom")||""}catch(e){return ""}}
+function pick(n){
+  if(!amigues.includes(n))n="";
+  uid=n||null;$("#qui").value=n;canWrite=!!uid&&configured;
+  try{n?localStorage.setItem("cercle-nom",n):localStorage.removeItem("cercle-nom")}catch(e){}
+  me=norm(uid&&all.has(uid)?all.get(uid):{});
+  setStatus(!configured?"Falta connectar la pàgina amb el full de Google":uid?"Hola, "+uid+". Ja pots votar.":"Tria el teu nom per votar");
+  renderDecs();renderAll();
+}
+function save(){
+  if(!canWrite||!uid)return;clearTimeout(timer);setStatus("Desant…");
+  timer=setTimeout(send,700);
+}
+async function send(){
+  timer=null;
+  if(saving){again=true;return}
+  saving=true;
+  try{
+    const res=await fetch(API_URL,{method:"POST",body:JSON.stringify({nom:uid,data:me})});
+    const d=await res.json();
+    if(d&&d.ok){all.set(uid,JSON.parse(JSON.stringify(me)));setStatus("Desat")}else setStatus("No s'ha pogut desar: torna a triar el teu nom");
+  }catch(e){setStatus("No s'ha pogut desar. Revisa la connexió.")}
+  saving=false;
+  if(again){again=false;send()}
+}
+const tog=(a,id)=>{const i=a.indexOf(id);i<0?a.push(id):a.splice(i,1)};
+document.addEventListener("click",e=>{
+  const b=e.target.closest("button[data-a]");if(!b||b.disabled)return;
+  const a=b.dataset.a;
+  if(a==="r"){if(!me.r.includes(b.dataset.id)&&me.r.length>=MAX)return;tog(me.r,b.dataset.id)}
+  else if(a==="porto")tog(me.porto,b.dataset.id);
+  else if(a==="t")tog(me.t,b.dataset.id);
+  else if(a==="dec")me[b.dataset.k]=me[b.dataset.k]===b.dataset.v?"":b.dataset.v;
+  save();renderAll();
+});
+document.addEventListener("input",e=>{if(e.target.id==="lloc"){me.lloc=e.target.value.slice(0,120);save();renderLlocs()}});
+$("#qui").addEventListener("change",e=>pick(e.target.value));
+fillNames();renderRituals();renderDecs();renderTasks();renderResults();
+if(!configured){setStatus("Falta connectar la pàgina amb el full de Google");$("#progtxt").textContent="Pàgina encara sense connectar"}
+else{load();setInterval(()=>{if(document.visibilityState==="visible")load()},20000)}
+}
+</script>
+</body>
+</html>
