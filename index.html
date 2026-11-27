@@ -44,6 +44,7 @@ h1{font-size:clamp(36px,6vw,54px)}h2{font-size:clamp(26px,3.4vw,34px)}h3{font-si
 .group span{color:var(--soft);font-size:15px}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:10px}
+.card.fix{background:var(--sage)}
 .card.sel{border-color:var(--mim);box-shadow:0 0 0 2px var(--mim) inset}
 .card h3 small{font:600 14px "Nunito Sans",sans-serif;color:var(--soft);margin-right:6px}
 .card p{margin:0}.meta{font-size:14px;color:var(--soft)}
@@ -59,7 +60,6 @@ button{font:inherit;cursor:pointer}
 .tg:disabled{opacity:.45;cursor:not-allowed}
 .bar{height:8px;border-radius:99px;background:var(--sage);overflow:hidden;position:relative}
 .bar i{display:block;height:100%;background:var(--sage2);border-radius:99px}.bar i.in{background:var(--mim)}
-.bar::after{content:"";position:absolute;left:62.5%;top:0;bottom:0;width:2px;background:var(--soft);opacity:.5}
 .who{font-size:14px;color:var(--soft)}
 .decs{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
 .opts{display:flex;flex-direction:column;gap:8px;margin-top:12px}
@@ -127,35 +127,44 @@ footer{color:var(--soft);font-size:14px;text-align:center;padding-bottom:40px}
   </div>
 </header>
 <nav class="nav"><div class="wrap">
-  <a href="#rituals">Rituals</a><a href="#decisions">Decisions</a><a href="#tasques">Comissions</a><a href="#resultats">Resultats</a><a href="#notes">Flors i cura</a>
+  <a href="#rituals">Rituals</a><a href="#regals">Regals</a><a href="#decisions">Decisions</a><a href="#tasques">Comissions</a><a href="#resultats">Resultats</a><a href="#notes">Flors i cura</a>
   <span class="status" id="status" role="status"></span>
 </div></nav>
 <main>
 <section class="band" id="rituals"><div class="wrap">
   <h2>Els rituals</h2>
   <div class="how" style="margin-top:18px">
-    <div><b>Com funciona.</b> Primer tria el teu nom a dalt, a «Qui ets?». Obrir l'espai, les fotos de panxa, el tancament i el dinar hi seran segur, i no cal votar-los. De la resta, marca fins a 10 rituals amb «M'agrada». Els que en tinguin 5 o més (la meitat del grup) entren a la cerimònia. Es desa sol.</div>
+    <div><b>Com funciona.</b> Primer tria el teu nom a dalt, a «Qui ets?». Els rituals segueixen l'ordre de la cerimònia. L'escrit d'obertura, l'altar, el tancament i el dinar hi seran segur (surten en verd) i no cal votar-los. De la resta, marca fins a 6 rituals amb «M'agrada». Els que en tinguin 5 o més (la meitat del grup) entren a la cerimònia. Es desa sol.</div>
     <div><b>Cada amiga porta un ritual.</b> Si n'hi ha algun que vols conduir tu, clica «El porto jo»: compraràs o prepararàs el material i el guiaràs aquell moment. Una de nosaltres farà també de conductora.</div>
-    <div>Has triat <span class="counter" id="counter">0 de 10</span>. La cerimònia hauria de durar unes 2 hores com a màxim, sense comptar el dinar.</div>
+    <div>Has triat <span class="counter" id="counter">0 de 6</span>. La cerimònia hauria de durar unes 2 hores com a màxim, sense comptar el dinar.</div>
   </div>
   <div id="ritlist"></div>
 </div></section>
-<section class="band" id="decisions" style="background:var(--sage)"><div class="wrap">
+<section class="band" id="regals" style="background:var(--sage)"><div class="wrap">
+  <h2>Regals</h2>
+  <p class="muted" style="margin:10px 0 20px">A part dels rituals, li podem fer algun regal. Digues si en vols fer, quants i quins t'agraden (en pots marcar tants com vulguis).</p>
+  <div class="decs" id="gq"></div>
+  <div class="grid" id="giftlist" style="margin-top:16px"></div>
+</div></section>
+<section class="band" id="decisions"><div class="wrap">
   <h2>Altres decisions</h2>
   <p class="muted" style="margin:10px 0 20px">Tria una opció de cada. A finals de gener floreix la mimosa: groga, lluminosa i de temporada.</p>
   <div class="decs" id="declist"></div>
 </div></section>
-<section class="band" id="tasques"><div class="wrap">
+<section class="band" id="tasques" style="background:var(--sage)"><div class="wrap">
   <h2>Comissions</h2>
   <p class="muted" style="margin:10px 0 20px">Per no atabalar el grup, ens repartim en quatre comissions. Cada comissió s'encarrega de les seves tasques i decideix pel seu compte. Som vuit: l'ideal és dues persones per comissió. Apunta't a la que vulguis.</p>
   <div class="decs" id="tasklist"></div>
   <p class="muted" style="margin-top:14px">Les despeses: cadascuna compra el material de la seva part i l'apunta al Tricount del grup.</p>
 </div></section>
-<section class="band" id="resultats" style="background:var(--sage)"><div class="wrap">
+<section class="band" id="resultats"><div class="wrap">
   <h2>Resultats en directe</h2>
   <div class="sum" id="sum">Encara no hi ha vots.</div>
   <div class="res" id="reslist"></div>
   <div class="decs" id="decres" style="margin-top:28px"></div>
+  <h3 style="font-size:24px;margin-top:36px">Regals</h3>
+  <div class="sum" id="giftsum">Encara no hi ha respostes sobre els regals.</div>
+  <div class="res" id="giftres"></div>
 </div></section>
 <section class="band" id="notes"><div class="wrap">
   <h2>Flors, ambient i cura</h2>
@@ -170,32 +179,33 @@ footer{color:var(--soft);font-size:14px;text-align:center;padding-bottom:40px}
 <script>
 {
 const R=[
-{fix:true,g:0,n:"Escrit d'obertura",d:"Una de nosaltres llegeix un text curt per marcar que la cerimònia comença.",m:"el text",t:3,open:true},
+{fix:true,g:0,n:"Escrit d'obertura",d:"Una de nosaltres llegeix un text curt per marcar que la cerimònia comença. Si surten la coronació o el detall al cabell, es fan just després.",m:"el text",t:3,open:true},
 {fix:true,g:0,n:"Altar dels quatre elements",d:"Un petit altar al centre amb teles i els quatre elements: terra (flors, pedres), aigua (bol amb pètals), aire (encens) i foc (espelmes). S'encén l'encens per obrir l'espai.",m:"teles, flors, pedres, bol, encens, espelmes",t:5},
-{g:1,n:"Coronació amb flors",d:"Li posem una corona de flors i diem una frase: «Et coronem com a mare de dos». Pot ser feta per una floristeria o entre totes, i cadascuna hi afegeix una flor.",m:"corona o base i flors soltes",t:5},
-{g:1,n:"Detall al cabell",d:"Opcional. La pentinem una mica i li fem una petita trena lateral amb una flor o un fil. Simbolitza deixar-se cuidar. Amb la corona potser ja n'hi ha prou.",m:"pinta, flor petita o fil",t:5},
-{g:2,n:"Espelmes de la família",d:"Li regalem unes espelmes i ella tria quina representa la Cris, el Rafa, la Candela i el nadó. Entre totes hi posem una intenció i les encenem. Se les emporta a casa i pot tornar a encendre la del nadó el dia que neixi.",m:"4 o 5 espelmes",t:10},
-{g:2,n:"Regal per a la Candela",d:"Un detall perquè la Candela també tingui el seu lloc: un llibre sobre ser germana gran, una nina amb un nadó o una capsa de coses per fer mentre la mama alleta.",m:"regal embolicat",t:5},
-{g:2,n:"Missatge o dibuix de la Candela",d:"Abans de la cerimònia, el Rafa ajuda la Candela a fer un dibuix o gravar un missatge per a la mama. Així la Candela hi és present.",m:"coordinació amb el Rafa",t:2},
-{g:3,n:"Penjoll-amulet a vuit mans",d:"Cada amiga porta un compte o una pedreta i la posa al cordó mentre li diu un desig per al part. És el seu amulet per als últims dies i el dia del part.",m:"cordó o cadena, 8 comptes",t:10},
-{g:3,n:"Fil vermell",d:"Ens passem un cabdell de fil vermell formant una xarxa mentre diem un desig. Cadascuna se'n lliga un tros al canell i no se'l treu fins que neixi el nadó.",m:"fil vermell, tisores",t:10},
-{g:3,n:"Espelmes per al dia del part",d:"Cada amiga s'emporta una espelma petita. Quan el Rafa avisi pel grup que ha començat el part, totes l'encenem per acompanyar-la a distància.",m:"8 espelmes petites",t:3},
-{g:4,n:"Cartes de la família i les amigues",d:"Una capsa amb cartes de les amigues i de la família (el Rafa, els seus pares, germans). Cal demanar-les abans del 9 de gener.",m:"capsa o sobre, cartes",t:15},
-{g:4,n:"Ronda de la «veritat sense filtre»",d:"Com que totes som mares, cadascuna li diu una frase honesta i tranquil·litzadora sobre el postpart, el que vam aprendre o el que admirem d'ella com a mare.",m:"res",t:15},
-{g:4,n:"Banderola de desigs",d:"Cada amiga escriu un desig en un triangle de roba o cartolina i fem una garlanda per penjar a l'habitació del part o del nadó.",m:"triangles, retoladors, cordó",t:10},
-{g:5,n:"Bany de peus i massatge",d:"Bany de peus amb aigua tèbia, sals i pètals, i massatge suau de mans i peus. Es pot fer mentre llegeix les cartes.",m:"palangana, tovallola, sals, oli d'ametlles",t:20},
-{g:5,n:"Kit per al part",d:"Un regal pràctic: oli de massatge per a les contraccions, oli per al massatge perineal, un TENS, mitjons càlids, bàlsam de llavis i coses per al postpart.",m:"segons el que es triï",t:3},
-{g:5,n:"Pot del respir",d:"Un pot de vidre amb paperets d'idees de descans per als dies esgotadors: «dutxa llarga amb la porta tancada», «truca'm i et porto un cafè».",m:"pot de vidre, paperets",t:5},
-{g:5,n:"Playlist per al part",d:"Una llista compartida on cada amiga afegeix 2 o 3 cançons per al dia del part. Es fa abans.",m:"llista a Spotify o similar",t:0},
-{g:6,n:"Calendari de menjars",d:"Ens comprometem a portar un àpat o un tàper les primeres setmanes, 2 o 3 dies per setmana durant un mes. Vivim totes al Prat, és fàcil.",m:"targeta i calendari compartit",t:2},
-{g:6,n:"Vals de cangur per a la Candela",d:"Vals del tipus «Una tarda al parc amb la Candela». La Cris descansa i la Candela té els seus moments especials.",m:"vals fets a mà",t:2},
-{fix:true,g:7,n:"Sessió de fotos de panxa",d:"No té cap foto de panxa d'aquest embaràs. Amb llum natural, flors, corona i faldilla, fotos soles i de grup. Al gener es fa fosc cap a les sis.",m:"càmera o mòbil, faldilla",t:30},
-{g:7,n:"Pintura a la panxa",d:"Opcional. Li pintem la panxa amb henna natural o pintura corporal a base d'aigua: un mandala, flors o branques. Abans de les fotos.",m:"henna natural o pintura, pinzells",t:30},
-{fix:true,g:8,n:"Tancament",d:"Una ronda d'una sola paraula, una abraçada col·lectiva amb ella al centre o apagar l'altar amb una frase.",m:"res",t:5},
-{fix:true,g:8,n:"Dinar o pica-pica",d:"Un àpat tranquil on la Cris no hagi de fer res, al mateix lloc o en un restaurant del Prat.",m:"menjar, begudes també sense alcohol",t:null}
+{g:0,n:"Coronació amb flors",d:"Li posem una corona de flors i diem una frase: «Et coronem com a mare de dos». Es fa a l'obertura, just després de l'escrit. Pot ser de floristeria o feta entre totes, i cadascuna hi afegeix una flor.",m:"corona o base i flors soltes",t:5},
+{g:0,n:"Detall al cabell",d:"La pentinem una mica i li fem una petita trena lateral amb una flor o un fil. Simbolitza deixar-se cuidar. També es fa a l'obertura: si surt amb la corona, es fan tots dos.",m:"pinta, flor petita o fil",t:5},
+{g:1,n:"Espelmes de la família",d:"Comprem espelmes i materials per decorar-les. Ella escull quina espelma representa cada membre de la seva família i per què, i així porta a la sala la presència de tota la família, cadascú amb la seva llum. Ella decideix com les vol decorar, i entre totes ho podem fer; si quan arribi el moment ho vol fer d'una altra manera, també es pot canviar. Se les emporta a casa.",sug:"També podem preparar una espelma petita per a cadascuna de nosaltres, per encendre-la quan el Rafa avisi que ha començat el part.",m:"espelmes, silicona, materials de decoració",t:10},
+{g:1,n:"Penjoll-amulet a vuit mans",d:"Cada amiga porta un compte o una pedreta i la posa al cordó mentre li diu un desig per al part. És el seu amulet per als últims dies i el dia del part.",m:"cordó o cadena, 8 comptes",t:10},
+{g:1,n:"Fil vermell del llinatge",d:"El fil vermell crida les ancestres: és el llinatge femení, la cadena de vida i saviesa que passa de mare a filla, i de filla a mare, fins arribar a ella i al nou nadó. És vermell perquè és la regla.",m:"cabdell de fil vermell, tisores",t:20,x:"fil"},
+{g:2,n:"Cartes",d:"Una capsa amb cartes de les amigues i de la família (el Rafa, els seus pares, germans), i un dibuix o missatge de la Candela. Cal demanar-les abans del 9 de gener.",m:"capsa o sobre, cartes",t:15},
+{g:2,n:"Ronda de la «veritat sense filtre»",d:"Com que totes som mares, cadascuna li diu una frase honesta i tranquil·litzadora sobre el postpart, el que vam aprendre o el que admirem d'ella com a mare.",m:"res",t:15},
+{g:2,n:"Banderola de desigs",d:"Cada amiga escriu un desig en un triangle de roba o cartolina i fem una garlanda per penjar a l'habitació del part o del nadó.",m:"triangles, retoladors, cordó",t:10},
+{g:3,n:"Bany de peus i massatge",d:"Bany de peus amb aigua tèbia, sals i pètals, i massatge suau de mans i peus amb oli neutre i música relaxant.",m:"palangana, tovallola, sals, oli d'ametlles",t:20},
+{g:4,n:"Pintura a la panxa",d:"Li pintem la panxa amb henna natural o pintura corporal a base d'aigua: un mandala, flors o branques.",m:"henna natural o pintura, pinzells",t:30},
+{g:4,n:"Sessió de fotos de panxa",d:"No té cap foto de panxa d'aquest embaràs. Amb llum natural, flors i la faldilla, fotos soles i de grup. Al gener es fa fosc cap a les sis.",m:"càmera o mòbil, faldilla",t:30},
+{fix:true,g:5,n:"Tancament",d:"Una ronda d'una sola paraula, una abraçada col·lectiva amb ella al centre o apagar l'altar amb una frase.",m:"res",t:5},
+{fix:true,g:5,n:"Dinar o pica-pica",d:"Un àpat tranquil on la Cris no hagi de fer res. Com el fem es vota a «Altres decisions».",m:"menjar, begudes també sense alcohol",t:null}
 ];
 {let vi=0,fi=0;for(const x of R){if(x.fix){x.id="f"+(++fi);x.num=null}else{x.id="r"+(++vi);x.num=vi}}}
-const G=[["Obrir l'espai","per començar"],["Honrar-la","ella al centre"],["La família que creix","la Candela i el nadó"],["La xarxa d'amigues","el que ens uneix"],["Paraules","el que li volem dir"],["Cura del cos","descansar i preparar-se"],["Després del part","compromisos per a les setmanes següents"],["Record","fotos"],["Tancar el cercle","per acabar"]];
+const G=[["Obrir l'espai","per començar"],["La xarxa","la família i les dones que la sostenen"],["Paraules","el que li volem dir"],["Cura del cos","que descansi"],["Record","la panxa d'aquest embaràs"],["Tancar el cercle","per acabar"]];
+const GIFTS=[
+{id:"g1",n:"Regal per a la Candela",d:"Un detall perquè la Candela també tingui el seu lloc: un llibre sobre ser germana gran, una nina amb un nadó o una capsa de coses per fer mentre la mama alleta."},
+{id:"g2",n:"Kit per al part",d:"Oli de massatge per a les contraccions, oli per al massatge perineal, un TENS, mitjons càlids, bàlsam de llavis i coses per al postpart. El TENS i les aromes, que els revisi la llevadora."},
+{id:"g3",n:"Pot del respir",d:"Un pot de vidre amb paperets d'idees de descans per als dies esgotadors: «dutxa llarga amb la porta tancada», «truca'm i et porto un cafè»."},
+{id:"g4",n:"Playlist per al part",d:"Una llista compartida on cada amiga afegeix 2 o 3 cançons per al dia del part, amb un QR imprès en una targeta per obrir-la."},
+{id:"g5",n:"Calendari de menjars",d:"Regal de temps: ens comprometem a portar un àpat o un tàper les primeres setmanes, 2 o 3 dies per setmana durant un mes."},
+{id:"g6",n:"Vals de cangur per a la Candela",d:"Regal de temps: vals del tipus «Una tarda al parc amb la Candela». La Cris descansa i la Candela té els seus moments especials."}
+];
+const GQ=[{k:"regal",n:"Li fem algun regal?",o:[["si","Sí"],["no","No"]]},{k:"quants",n:"Quants regals?",o:[["1","1"],["2","2"],["3","3"],["mes","Més de 3"]]}];
 const T=[
 {n:"Espai i ambient",d:["Decidir el lloc i l'hora, i confirmar-ho amb la Cris","Flors per a l'altar i la decoració","Teles, coixins, mantes, butaca, espelmes","Arribar abans per muntar i quedar-se a recollir"]},
 {n:"Cerimònia",d:["Fer de conductora: ordre dels rituals, obrir i tancar","Música suau per a la cerimònia i altaveu","Fotos de tota la cerimònia","Triar i aconseguir la faldilla per a la Cris"]},
@@ -209,15 +219,15 @@ const D=[
 {k:"hora",n:"Matí o tarda",o:[["mati","Matí i després dinar"],["tarda","Tarda i després berenar o sopar"]]},
 {k:"menjar",n:"El menjar",o:[["pica","Pica-pica al mateix lloc"],["dinar","Dinar al mateix lloc"],["rest","Restaurant al Prat"]]}
 ];
-let N=8;const MAX=10,PASS=5;
+let N=8;const MAX=6,PASS=5;
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-let me={r:[],porto:[],t:[],paleta:"",hora:"",menjar:"",lloc:""};
+let me={r:[],porto:[],t:[],g:[],paleta:"",hora:"",menjar:"",lloc:"",regal:"",quants:""};
 /* Enganxa aquí l'URL de l'aplicació web de Google Apps Script (acaba en /exec) */
 const API_URL="https://script.google.com/macros/s/AKfycbxWkwlM_EcnQonBXkov0ZQXTmmoIn8OVJ5m0aHir-KV29V66QXyGtGmgz0PMm5cGO6gSg/exec";
 let all=new Map(),uid=null,amigues=NOMS.slice(),canWrite=false,ready=false;
 const arr=v=>Array.isArray(v)?v.filter(x=>typeof x==="string"):[];
-const norm=v=>({r:arr(v.r).slice(0,MAX),porto:arr(v.porto),t:arr(v.t),paleta:String(v.paleta||""),hora:String(v.hora||""),menjar:String(v.menjar||""),lloc:String(v.lloc||"").slice(0,120)});
+const norm=v=>({r:arr(v.r).slice(0,MAX),porto:arr(v.porto),t:arr(v.t),g:arr(v.g),regal:String(v.regal||""),quants:String(v.quants||""),paleta:String(v.paleta||""),hora:String(v.hora||""),menjar:String(v.menjar||""),lloc:String(v.lloc||"").slice(0,120)});
 function people(){const l=[];for(const [id,v] of all)if(id!==uid)l.push([id,norm(v)]);if(uid&&ready)l.push([uid,me]);return l}
 const nm=id=>id===uid?"tu":id;
 const by=(f,val)=>people().filter(([,v])=>f in v&&(Array.isArray(v[f])?v[f].includes(val):v[f]===val));
@@ -226,19 +236,21 @@ function setStatus(s){$("#status").textContent=s;$("#status2").textContent=s}
 function card(r){
   const v=by("r",r.id).length,p=by("porto",r.id),sel=me.r.includes(r.id),mine=me.porto.includes(r.id);
   const lock=!canWrite||(!sel&&me.r.length>=MAX);
-  let h=`<article class="card${sel?" sel":""}"><h3>${r.num?`<small>${r.num}</small>`:""}${esc(r.n)}</h3><p>${esc(r.d)}</p>`;
-  if(r.open)h+=`<details><summary>Llegeix un esborrany del text</summary><blockquote><p>Cris, avui no has de fer res. Ni preparar, ni servir, ni estar pendent de ningú. Avui et cuidem nosaltres.</p><p>Fa uns anys vam fer cercle al teu voltant quan va arribar la Candela. Vam aprendre juntes que ser mare és preciós i és cansat, i que no s'hauria de fer mai sola.</p><p>Ara la teva família es fa més gran. El Rafa, la Candela i tu esteu a punt de fer lloc a algú que encara no coneixem, i que ja estimem.</p><p>Aquest espai és per honrar el camí que ja has fet, per donar-te força per al que ve i per recordar-te que no estàs sola. Som vuit, som mares, i hi som.</p><p>Benvinguda al teu cercle.</p></blockquote></details>`;
+  let h=`<article class="card${sel?" sel":""}${r.fix?" fix":""}"><h3>${r.num?`<small>${r.num}</small>`:""}${esc(r.n)}</h3><p>${esc(r.d)}</p>`;
+  if(r.open)h+=`<details><summary>Llegeix un esborrany del text</summary><blockquote><p>Cris, avui no has de fer res. Ni preparar, ni servir, ni estar pendent de ningú. Avui et cuidem nosaltres.</p><p>Fa uns anys vam fer cercle al teu voltant quan va arribar la Candela. Vam aprendre juntes que ser mare és preciós i és cansat, i que no s'hauria de fer mai sola.</p><p class="meta" style="font-family:'Nunito Sans',sans-serif"><b>Aquí va la part sobre la Cris.</b></p><p>Ara la teva família es fa més gran. El Rafa, la Candela i tu esteu a punt de fer lloc a algú que encara no coneixem, i que ja estimem.</p><p>Aquest espai és per honrar el camí que ja has fet, per donar-te força per al que ve i per recordar-te que no estàs sola. Som vuit, som mares, i hi som.</p><p>Benvinguda al teu cercle.</p></blockquote><p style="margin:12px 0 4px"><b>Per escriure la part sobre la Cris</b>, algunes idees per inspirar-te:</p><ul style="margin:0;padding-left:20px"><li>Com és com a dona</li><li>Com és com a mare de la Candela</li><li>Com és com a amiga</li><li>Com és com a parella del Rafa</li><li>Com t'imagines que serà com a mare de dos</li><li>Quina és la seva llum, la seva essència</li><li>Què aporta allà on és, a les persones que té a prop</li><li>Un record amb ella que t'emocioni</li></ul></details>`;
   h+=`<div class="meta">${esc(r.m)} · ${r.t===null?"durada oberta":r.t+" min"}</div>`;
-  if(r.fix)h+=`<div class="who">${p.length?"El porta: "+list(p):"Encara no el porta ningú"}</div>`;
+  if(r.sug)h+=`<p class="meta"><i>Suggeriment:</i> ${esc(r.sug)}</p>`;
+  if(r.x==="fil")h+=`<details><summary>Com es fa</summary><ol style="margin:8px 0 0;padding-left:20px"><li><b>La ronda del llinatge.</b> Una amiga agafa el cabdell, col·loca l'extrem del fil al seu canell (o al de la Cris, o al centre de la rotllana) i comença a recitar el seu llinatge.</li><li><b>Una volta per cada persona.</b> Cada vegada que anomena algú, fa una volta completa amb el fil. Primer els fills i filles que ha gestat, i després la seva línia de dones, enrere fins on sàpiga, sense pressa. Cadascuna anomena qui vulgui.</li><li><b>Passar el cabdell.</b> Quan acaba, el passa a la companya del costat sense tallar el fil, i així quedem totes connectades a la mateixa xarxa.</li><li><b>La mare tanca el cercle.</b> Quan totes vuit hem fet les nostres voltes, la Cris fa les del seu llinatge i acaba sumant-hi la Candela i el nou nadó, tancant el cercle entre passat, present i futur.</li><li><b>Compartir el fil.</b> Tallem un tros per a cadascuna i el portem lligat al canell fins que neixi el nadó. Llavors el tallem i el cremem.</li></ol><p style="margin:10px 0 0"><b>Exemple:</b></p><blockquote><p>Jo soc [nom] (volta). He gestat [fill o filla] (volta) i [fill o filla] (volta). A mi m'ha gestat [mare] (volta), que l'ha gestada [àvia] (volta), que l'ha gestada [besàvia] (volta)… fins on sapiguem, i totes les dones que van venir abans. Avui porto la seva força per acompanyar-te en la gestació, el part i el postpart.</p></blockquote><p class="meta" style="margin-top:8px"><b>Nota de cura:</b> si alguna no coneix els noms de les seves àvies o prefereix no anomenar algú en concret, pot fer les voltes dient «de les dones de la meva sang» o «de les meves ancestres», i té exactament el mateix valor.</p></details>`;
+  if(r.fix)h+=`<div class="who"><b>Hi serà segur</b> · ${p.length?"el porta: "+list(p):"encara no el porta ningú"}</div>`;
   else h+=`<div class="bar" title="${v} vots"><i class="${v>=PASS?"in":""}" style="width:${v/N*100}%"></i></div>
     <div class="who">${v} ${v===1?"vot":"vots"}${v>=PASS?" · entra":""}${p.length?" · el porta: "+list(p):""}</div>`;
   h+=`<div class="btns">${r.fix?"":`<button class="tg" data-a="r" data-id="${r.id}" aria-pressed="${sel}" ${lock?"disabled":""}>M'agrada</button>`}<button class="tg alt" data-a="porto" data-id="${r.id}" aria-pressed="${mine}" ${canWrite?"":"disabled"}>El porto jo</button></div></article>`;
   return h;
 }
 function renderRituals(){
-  let h=`<div class="group"><h3 style="font-size:24px">Això hi serà segur</h3><span>no cal votar-ho, només falta qui ho porti</span></div><div class="grid">${R.filter(x=>x.fix).map(card).join("")}</div>`;
+  let h="";
   G.forEach((g,gi)=>{
-    const rs=R.filter(x=>x.g===gi&&!x.fix);if(!rs.length)return;
+    const rs=R.filter(x=>x.g===gi);if(!rs.length)return;
     h+=`<div class="group"><h3 style="font-size:24px">${esc(g[0])}</h3><span>${esc(g[1])}</span></div><div class="grid">${rs.map(card).join("")}</div>`;
   });
   $("#ritlist").innerHTML=h;
@@ -263,11 +275,19 @@ function renderResults(){
   $("#progtxt").textContent=voted+" de "+N+" ja han votat";
   const fixMin=R.filter(x=>x.fix).reduce((s,x)=>s+(x.t||0),0);const rows=R.filter(x=>!x.fix).map(r=>({r,v:by("r",r.id).length})).sort((a,b)=>b.v-a.v||a.r.num-b.r.num);
   const inn=rows.filter(x=>x.v>=PASS),mins=fixMin+inn.reduce((s,x)=>s+(x.r.t||0),0);
-  $("#sum").innerHTML=voted?`Amb ${voted} ${voted===1?"vot":"vots"}, entren <strong>${inn.length}</strong> rituals, que amb els moments fixos sumen uns <strong>${mins} min</strong> de cerimònia (sense el dinar).`:"Encara no ha votat ningú. Quan voteu, aquí veureu quins rituals entren.";
-  $("#reslist").innerHTML=rows.map(x=>`<div class="row"><b>${x.r.num}. ${esc(x.r.n)}</b><div class="bar"><i class="${x.v>=PASS?"in":""}" style="width:${x.v/N*100}%"></i></div><span class="n">${x.v} / ${N}</span></div>`).join("")+`<p class="muted" style="margin:4px 0 0;font-size:14px">La línia marca els 5 vots necessaris per entrar.</p>`;
+  $("#sum").innerHTML=voted?`Amb ${voted} de ${N} respostes, entren <strong>${inn.length}</strong> rituals, que amb els moments fixos sumen uns <strong>${mins} min</strong> de cerimònia (sense el dinar).`:"Encara no ha votat ningú. Quan voteu, aquí veureu quins rituals entren.";
+  $("#reslist").innerHTML=rows.map(x=>`<div class="row"><b>${x.r.num}. ${esc(x.r.n)}</b><div class="bar"><i class="${x.v>=PASS?"in":""}" style="width:${x.v/N*100}%"></i></div><span class="n">${x.v} / ${N}</span></div>`).join("")+`<p class="muted" style="margin:4px 0 0;font-size:14px">En groc, els que tenen 5 vots o més, la meitat del grup: de moment entrarien.</p>`;
   $("#decres").innerHTML=D.map(d=>`<div class="card"><h3>${esc(d.n)}</h3>${d.o.map(o=>{const w=by(d.k,o[0]);return `<div class="row" style="grid-template-columns:minmax(0,1fr) 3em"><span>${esc(o[1])}${w.length?`<br><span class="who">${list(w)}</span>`:""}</span><span class="n">${w.length}</span></div>`}).join("")}</div>`).join("");
 }
-function renderAll(){renderRituals();renderTasks();renderResults();renderDecCounts();renderLlocs()}
+function renderGifts(){
+  $("#gq").innerHTML=GQ.map(d=>`<div class="card"><h3>${esc(d.n)}</h3><div class="opts">${d.o.map(o=>`<button class="tg opt" data-a="dec" data-k="${d.k}" data-v="${o[0]}" aria-pressed="${me[d.k]===o[0]}" ${canWrite?"":"disabled"}><span>${esc(o[1])}</span><span>${by(d.k,o[0]).length}</span></button>`).join("")}</div></div>`).join("");
+  $("#giftlist").innerHTML=GIFTS.map(g=>{const w=by("g",g.id),on=me.g.includes(g.id);return `<article class="card${on?" sel":""}"><h3>${esc(g.n)}</h3><p>${esc(g.d)}</p><div class="who">${w.length} ${w.length===1?"vot":"vots"}</div><div class="btns"><button class="tg" data-a="g" data-id="${g.id}" aria-pressed="${on}" ${canWrite?"":"disabled"}>M'agrada</button></div></article>`}).join("");
+  const si=by("regal","si").length,no=by("regal","no").length,q=GQ[1].o.map(o=>[o[1],by("quants",o[0]).length]).sort((a,b)=>b[1]-a[1]);
+  $("#giftsum").innerHTML=si+no?`<strong>${si}</strong> volen fer regals i <strong>${no}</strong> no.${q[0][1]?` La quantitat més votada és <strong>${esc(q[0][0])}</strong>.`:""}`:"Encara no hi ha respostes sobre els regals.";
+  const rows=GIFTS.map(g=>({g,v:by("g",g.id).length})).sort((a,b)=>b.v-a.v);
+  $("#giftres").innerHTML=rows.map(x=>`<div class="row"><b>${esc(x.g.n)}</b><div class="bar"><i style="width:${x.v/N*100}%"></i></div><span class="n">${x.v} / ${N}</span></div>`).join("");
+}
+function renderAll(){renderRituals();renderGifts();renderTasks();renderResults();renderDecCounts();renderLlocs()}
 let timer=null,saving=false,again=false;
 const configured=/^https:\/\/script\.google\.com\//.test(API_URL);
 async function load(){
@@ -319,12 +339,13 @@ document.addEventListener("click",e=>{
   if(a==="r"){if(!me.r.includes(b.dataset.id)&&me.r.length>=MAX)return;tog(me.r,b.dataset.id)}
   else if(a==="porto")tog(me.porto,b.dataset.id);
   else if(a==="t")tog(me.t,b.dataset.id);
+  else if(a==="g")tog(me.g,b.dataset.id);
   else if(a==="dec")me[b.dataset.k]=me[b.dataset.k]===b.dataset.v?"":b.dataset.v;
   save();renderAll();
 });
 document.addEventListener("input",e=>{if(e.target.id==="lloc"){me.lloc=e.target.value.slice(0,120);save();renderLlocs()}});
 $("#qui").addEventListener("change",e=>pick(e.target.value));
-fillNames();renderRituals();renderDecs();renderTasks();renderResults();
+fillNames();renderRituals();renderGifts();renderDecs();renderTasks();renderResults();
 if(!configured){setStatus("Falta connectar la pàgina amb el full de Google");$("#progtxt").textContent="Pàgina encara sense connectar"}
 else{load();setInterval(()=>{if(document.visibilityState==="visible")load()},20000)}
 }
